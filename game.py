@@ -23,6 +23,7 @@ class Game:
                 self.battle(self.human_1, self.human_2)
             elif player_count == 3:
                 self.battle(self.ai_1, self.ai_2)
+
             game_run = self.repeat_game()
         print('')
         print('Thanks for playing!')
@@ -53,14 +54,19 @@ class Game:
         print("")
     
     def determine_player_count(self):
-        user_input = input('How many players will be playing? [Enter 1, 2, or 3 for a suprise]: ')
-        return user_input    
+        entry_valid = False
+        while entry_valid == False:
+            user_input = input('How many players will be playing? [Enter 1, 2, or 3 for a suprise]: ')
+            if user_input == '1' or user_input == '2' or user_input == '3':
+                return user_input
+            else:
+                print('Im sorry, but that is not a valid entry')   
     
     def random_integer(self):
         rand_int = random.randint(0,4)
         return rand_int
     
-    def player_choice(self, player_1_choice, player_2_choice):
+    def round_winner(self, player_1_choice, player_2_choice):
         if player_1_choice == 'rock':
             if player_2_choice == 'rock':
                 return 3
@@ -129,8 +135,8 @@ class Game:
                 print("Choose 2 for Scissors")
                 print("Choose 3 for Lizard")
                 print("Choose 4 for Spock")
-                user_input = int(input("Which move would you like to do Player 1?: "))
-                player_1_choice = gesture_list[user_input]
+                player_1_choice_num = int(self.player_choice(player_1))
+                player_1_choice = gesture_list[player_1_choice_num]
                 print("")
                 print(f'Player 1 has chosen {player_1_choice}')
             elif player_1 == self.ai_1:
@@ -144,15 +150,15 @@ class Game:
                 print("Choose 2 for Scissors")
                 print("Choose 3 for Lizard")
                 print("Choose 4 for Spock")
-                user_input_2 = int(input("Which move would you like to do Player 2?: "))
-                player_2_choice = gesture_list[user_input_2]
+                player_2_choice_num = int(self.player_choice(player_2))
+                player_2_choice = gesture_list[player_2_choice_num]
                 print("")
                 print(f'Player 2 has chosen {player_2_choice}')
             elif player_2 == self.ai_2:
                 player_2_choice = gesture_list[self.random_integer()]
                 print("")
                 print(f'Player 2 has chosen {player_2_choice}')
-            winner = self.player_choice(player_1_choice, player_2_choice)
+            winner = self.round_winner(player_1_choice, player_2_choice)
             self.determine_winner(winner)
             if winner == 1:
                 win_counter_1 += 1
@@ -160,6 +166,15 @@ class Game:
                 win_counter_2 += 1
             round_counter += 1
         self.final_winner(win_counter_1,win_counter_2)
+
+    def player_choice(self, player):
+        entry_valid = False
+        while entry_valid == False:
+            user_input = input(f'Which move would you like to choose {player.name}?: ')
+            if user_input == '0' or user_input == '1' or user_input == '2' or user_input == '3' or user_input == '4':
+                return user_input
+            else:
+                print('Im sorry, but that is not a valid entry')
 
     def final_winner(self,win_counter_1, win_counter_2):
         if win_counter_1 > win_counter_2:
@@ -181,8 +196,13 @@ class Game:
             print('Its a draw!')
 
     def repeat_game(self):
-        user_input = input('Would you like to play again? (y/n): ')
-        if user_input == 'y':
-            return True
-        elif user_input == 'n':
-            return False
+        entry_valid = False
+        while entry_valid == False:
+            user_input = input('Would you like to play again? (y/n): ')
+            if user_input == 'y':
+                return True
+            elif user_input == 'n':
+                return False
+            else:
+                print('Im sorry, that is not a valid entry')
+
