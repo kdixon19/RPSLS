@@ -118,8 +118,10 @@ class Game:
                 return 3
 
     def battle(self, player_1, player_2):
-        counter = 0
-        while counter <= 3:
+        round_counter = 0
+        win_counter_1 = 0
+        win_counter_2 = 0
+        while round_counter < 3:
             if player_1 == self.human_1:
                 print("")
                 print("Choose 0 for Rock")
@@ -152,7 +154,20 @@ class Game:
                 print(f'Player 2 has chosen {player_2_choice}')
             winner = self.player_choice(player_1_choice, player_2_choice)
             self.determine_winner(winner)
-            counter += 1
+            if winner == 1:
+                win_counter_1 += 1
+            elif winner == 2:
+                win_counter_2 += 1
+            round_counter += 1
+        self.final_winner(win_counter_1,win_counter_2)
+
+    def final_winner(self,win_counter_1, win_counter_2):
+        if win_counter_1 > win_counter_2:
+            print('Congratulations Player 1, you have won the game!')
+        elif win_counter_1 < win_counter_2:
+            print('Congratulations Player 2, you have won the game!')
+        elif win_counter_1 == win_counter_2:
+            print('We have a draw, you should play again!')
 
     def determine_winner(self, winner):
         if winner == 1:

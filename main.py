@@ -1,4 +1,3 @@
-import imp
 from game import Game
 
 game = Game()
