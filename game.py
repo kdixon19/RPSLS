@@ -126,7 +126,7 @@ class Game:
     def battle(self, player_1, player_2): #This function tracks wins, the final winner and conducts the battle phase
         win_counter_1 = 0
         win_counter_2 = 0
-        while win_counter_1 < 2 or win_counter_2 < 2:
+        while win_counter_1 < 2 and win_counter_2 < 2:
             if player_1 == self.human_1:
                 print("")
                 print("Choose 0 for Rock")
