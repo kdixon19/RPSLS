@@ -123,11 +123,10 @@ class Game:
             elif player_2_choice == 'spock':
                 return 3
 
-    def battle(self, player_1, player_2): #This function tracks wins, the final winner, rounds, and conducts the battle phase
-        round_counter = 0
+    def battle(self, player_1, player_2): #This function tracks wins, the final winner and conducts the battle phase
         win_counter_1 = 0
         win_counter_2 = 0
-        while round_counter < 3:
+        while win_counter_1 < 2 or win_counter_2 < 2:
             if player_1 == self.human_1:
                 print("")
                 print("Choose 0 for Rock")
@@ -164,7 +163,6 @@ class Game:
                 win_counter_1 += 1
             elif winner == 2:
                 win_counter_2 += 1
-            round_counter += 1
         self.final_winner(win_counter_1,win_counter_2)
 
     def player_choice(self, player): #This validates the player choice to make sure it is a valid entry
