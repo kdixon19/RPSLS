@@ -5,3 +5,4 @@ class Human(Player):
         super().__init__(name)
         self.name = name
     
+#This is a inherited class from the parent player class
