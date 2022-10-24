@@ -56,9 +56,64 @@ class Game:
         rand_int = Random.randint(0,4)
         return rand_int
     
-    def determine_winner(self, player_1_choice, player_2_choice):
+    def player_choice(self, player_1_choice, player_2_choice):
         if player_1_choice == 'rock':
-            pass
+            if player_2_choice == 'rock':
+                return 3
+            elif player_2_choice == 'paper':
+                return 2
+            elif player_2_choice == 'scissors':
+                return 1
+            elif player_2_choice == 'lizard':
+                return 1
+            elif player_2_choice == 'spock':
+                return 2
+        elif player_1_choice == 'paper':
+            if player_2_choice == 'rock':
+                return 1
+            elif player_2_choice == 'paper':
+                return 3
+            elif player_2_choice == 'scissors':
+                return 2
+            elif player_2_choice == 'lizard':
+                return 2
+            elif player_2_choice == 'spock':
+                return 1
+        elif player_1_choice == 'scissors':
+            if player_2_choice == 'rock':
+                return 2
+            elif player_2_choice == 'paper':
+                return 1
+            elif player_2_choice == 'scissors':
+                return 3
+            elif player_2_choice == 'lizard':
+                return 1
+            elif player_2_choice == 'spock':
+                return 2
+        elif player_1_choice == 'lizard':
+            if player_2_choice == 'rock':
+                return 2
+            elif player_2_choice == 'paper':
+                return 1
+            elif player_2_choice == 'scissors':
+                return 2
+            elif player_2_choice == 'lizard':
+                return 3
+            elif player_2_choice == 'spock':
+                return 1
+        elif player_1_choice == 'spock':
+            if player_2_choice == 'rock':
+                return 1
+            elif player_2_choice == 'paper':
+                return 2
+            elif player_2_choice == 'scissors':
+                return 1
+            elif player_2_choice == 'lizard':
+                return 2
+            elif player_2_choice == 'spock':
+                return 3
+
+        
 
 
     def battle(self, player_1, player_2):
@@ -73,8 +128,10 @@ class Game:
                 print("Choose 4 for Spock")
                 user_input = input("Which move would you like to do Player 1?: ")
                 player_1_choice = gesture_list[user_input]
+                print(f'Player 1 has chosen {player_1_choice}')
             elif player_1 == self.ai_1:
                 player_1_choice = gesture_list[self.random_integer()]
+                print(f'Player 1 has chosen {player_1_choice}')
             if player_2 == self.human_2:
                 print("")
                 print("Choose 0 for Rock")
@@ -84,6 +141,23 @@ class Game:
                 print("Choose 4 for Spock")
                 user_input_2 = input("Which move would you like to do Player 2?: ")
                 player_2_choice = gesture_list[user_input_2]
+                print(f'Player 2 has chosen {player_2_choice}')
             elif player_1 == self.ai_2:
                 player_2_choice = gesture_list[self.random_integer()]
-            
+                print(f'Player 2 has chosen {player_2_choice}')
+            winner = self.player_choice(player_1_choice, player_2_choice)
+            if winner == 1:
+                print("")
+                print('Congratulations, Player 1 has won!')
+            elif winner == 2:
+                print("")
+                print('Player 2 has won!')
+            elif winner == 3:
+                print('')
+                print('Its a draw!')
+            user_input = input('Would you like to play again? (y/n)')
+            if user_input == 'y':
+                battle = True
+            elif user_input_2 == 'n':
+                battle = False
+    
