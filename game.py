@@ -15,9 +15,13 @@ class Game:
     def run_game(self):
         self.display_welcome()
         self.display_rules()
-        player_count = self.determine_player_count
+        player_count = int(self.determine_player_count())
         if player_count == 1:
             self.battle(self.human_1, self.ai_1)
+        elif player_count == 2:
+            self.battle(self.human_1, self.human_2)
+        elif player_count == 3:
+            self.battle(self.ai_1, self.ai_2)
 
     
     def display_welcome(self):
@@ -126,7 +130,7 @@ class Game:
                 print("Choose 2 for Scissors")
                 print("Choose 3 for Lizard")
                 print("Choose 4 for Spock")
-                user_input = input("Which move would you like to do Player 1?: ")
+                user_input = int(input("Which move would you like to do Player 1?: "))
                 player_1_choice = gesture_list[user_input]
                 print(f'Player 1 has chosen {player_1_choice}')
             elif player_1 == self.ai_1:
@@ -139,23 +143,23 @@ class Game:
                 print("Choose 2 for Scissors")
                 print("Choose 3 for Lizard")
                 print("Choose 4 for Spock")
-                user_input_2 = input("Which move would you like to do Player 2?: ")
+                user_input_2 = int(input("Which move would you like to do Player 2?: "))
                 player_2_choice = gesture_list[user_input_2]
                 print(f'Player 2 has chosen {player_2_choice}')
-            elif player_1 == self.ai_2:
+            elif player_2 == self.ai_2:
                 player_2_choice = gesture_list[self.random_integer()]
                 print(f'Player 2 has chosen {player_2_choice}')
             winner = self.player_choice(player_1_choice, player_2_choice)
             if winner == 1:
                 print("")
-                print('Congratulations, Player 1 has won!')
+                print('Player 1 has won!')
             elif winner == 2:
                 print("")
                 print('Player 2 has won!')
             elif winner == 3:
                 print('')
                 print('Its a draw!')
-            user_input = input('Would you like to play again? (y/n)')
+            user_input = input('Would you like to play again? (y/n): ')
             if user_input == 'y':
                 battle = True
             elif user_input_2 == 'n':
