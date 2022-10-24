@@ -1,6 +1,6 @@
 from human import Human
 from ai import AI
-from random import Random
+import random
 
 class Game:
     def __init__(self) -> None:
@@ -17,11 +17,13 @@ class Game:
         self.display_rules()
         player_count = int(self.determine_player_count())
         if player_count == 1:
-            self.battle(self.human_1, self.ai_1)
+            self.battle(self.human_1, self.ai_2)
         elif player_count == 2:
             self.battle(self.human_1, self.human_2)
         elif player_count == 3:
             self.battle(self.ai_1, self.ai_2)
+        print('')
+        print('Thanks for playing!')
 
     
     def display_welcome(self):
@@ -57,7 +59,7 @@ class Game:
         pass
     
     def random_integer(self):
-        rand_int = Random.randint(0,4)
+        rand_int = random.randint(0,4)
         return rand_int
     
     def player_choice(self, player_1_choice, player_2_choice):
@@ -162,6 +164,6 @@ class Game:
             user_input = input('Would you like to play again? (y/n): ')
             if user_input == 'y':
                 battle = True
-            elif user_input_2 == 'n':
+            elif user_input == 'n':
                 battle = False
     
