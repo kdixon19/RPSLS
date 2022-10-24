@@ -11,21 +11,22 @@ class Game:
         global gesture_list
         gesture_list = ['rock','paper','scissors','lizard','spock']
 
-
     def run_game(self):
-        self.display_welcome()
-        self.display_rules()
-        player_count = int(self.determine_player_count())
-        if player_count == 1:
-            self.battle(self.human_1, self.ai_2)
-        elif player_count == 2:
-            self.battle(self.human_1, self.human_2)
-        elif player_count == 3:
-            self.battle(self.ai_1, self.ai_2)
+        game_run = True
+        while game_run == True:
+            self.display_welcome()
+            self.display_rules()
+            player_count = int(self.determine_player_count())
+            if player_count == 1:
+                self.battle(self.human_1, self.ai_2)
+            elif player_count == 2:
+                self.battle(self.human_1, self.human_2)
+            elif player_count == 3:
+                self.battle(self.ai_1, self.ai_2)
+            game_run = self.repeat_game()
         print('')
         print('Thanks for playing!')
 
-    
     def display_welcome(self):
         print("")
         print("Welcome to Rock Paper Scissors Lizards Spock")
@@ -53,10 +54,7 @@ class Game:
     
     def determine_player_count(self):
         user_input = input('How many players will be playing? [Enter 1, 2, or 3 for a suprise]: ')
-        return user_input
-    
-    def player_move_choice(self):
-        pass
+        return user_input    
     
     def random_integer(self):
         rand_int = random.randint(0,4)
@@ -119,12 +117,9 @@ class Game:
             elif player_2_choice == 'spock':
                 return 3
 
-        
-
-
     def battle(self, player_1, player_2):
-        battle = True
-        while battle == True:
+        counter = 0
+        while counter <= 3:
             if player_1 == self.human_1:
                 print("")
                 print("Choose 0 for Rock")
@@ -134,9 +129,11 @@ class Game:
                 print("Choose 4 for Spock")
                 user_input = int(input("Which move would you like to do Player 1?: "))
                 player_1_choice = gesture_list[user_input]
+                print("")
                 print(f'Player 1 has chosen {player_1_choice}')
             elif player_1 == self.ai_1:
                 player_1_choice = gesture_list[self.random_integer()]
+                print("")
                 print(f'Player 1 has chosen {player_1_choice}')
             if player_2 == self.human_2:
                 print("")
@@ -147,23 +144,30 @@ class Game:
                 print("Choose 4 for Spock")
                 user_input_2 = int(input("Which move would you like to do Player 2?: "))
                 player_2_choice = gesture_list[user_input_2]
+                print("")
                 print(f'Player 2 has chosen {player_2_choice}')
             elif player_2 == self.ai_2:
                 player_2_choice = gesture_list[self.random_integer()]
+                print("")
                 print(f'Player 2 has chosen {player_2_choice}')
             winner = self.player_choice(player_1_choice, player_2_choice)
-            if winner == 1:
-                print("")
-                print('Player 1 has won!')
-            elif winner == 2:
-                print("")
-                print('Player 2 has won!')
-            elif winner == 3:
-                print('')
-                print('Its a draw!')
-            user_input = input('Would you like to play again? (y/n): ')
-            if user_input == 'y':
-                battle = True
-            elif user_input == 'n':
-                battle = False
-    
+            self.determine_winner(winner)
+            counter += 1
+
+    def determine_winner(self, winner):
+        if winner == 1:
+            print("")
+            print('Player 1 has won!')
+        elif winner == 2:
+            print("")
+            print('Player 2 has won!')
+        elif winner == 3:
+            print('')
+            print('Its a draw!')
+
+    def repeat_game(self):
+        user_input = input('Would you like to play again? (y/n): ')
+        if user_input == 'y':
+            return True
+        elif user_input == 'n':
+            return False
